@@ -1,0 +1,7 @@
+# .gitignore file for project
+
+pretrained_model
+**/__pycache__/
+**/.ipynb_checkpoints/
+logs/
+exp_result/

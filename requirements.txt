@@ -1,0 +1,11 @@
+audiomentations==0.41.0
+librosa==0.10.2.post1
+mamba_ssm==1.1.4
+matplotlib==3.9.2
+numpy==1.26.4
+pandas==2.2.2
+scipy==1.14.1
+tensorboardX==2.6.2.2
+torch==2.2.0+cu121
+torchcontrib==2.2.0
+tqdm==4.66.5

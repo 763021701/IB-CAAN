@@ -11,7 +11,7 @@ Official PyTorch implementation of [Generalizable Speech Deepfake Detection via 
 ## 🔥 Update:
 ✔️ [October 15, 2025] The code for *ASVspoof 2019 LA*, *ASVspoof 2021*, and *In-the-Wild* has been released.
 
-🔥 [September 16, 2025] The code for *ASVspoof 5* is currently being organized and will be updated soon.
+🔥 [TODO.] The code for *ASVspoof 5* is currently being organized and will be updated soon.
 
 
 
@@ -89,12 +89,18 @@ python main.py --config config/Wav2vec2_XLSR_ASVspoof2019_IBCAAN.conf
 Modify the following fields in the configuration file:
 
 ```json
-"model_path": "/change/to/your/model/path/",
-"checkpoints":  ["checkpoints0.pth", "checkpoints1.pth", ...],
-"track": "19LA",  # It can be "19LA", "21LA", "21DF", "ITW"
+{
+  "model_path": "/change/to/your/model/path/",
+  "checkpoints":  ["checkpoint0.pth", "checkpoint1.pth", "checkpoint2.pth"],
+  "track": "19LA",
+}
 ```
 
-If the length of checkpoints >= 1, weighted averaging is automatically performed.
+- If the length of **"checkpoints"** >= 1, weighted averaging is automatically performed.
+
+- **"track"** can be "19LA", "21LA", "21DF", "ITW".
+
+
 
 Then execute the following command to generate the evaluation scores:
 

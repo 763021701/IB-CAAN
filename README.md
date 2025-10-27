@@ -11,8 +11,7 @@ Official PyTorch implementation of [Generalizable Speech Deepfake Detection via 
 ## 🔥 Update:
 ✔️ [October 15, 2025] The code for *ASVspoof 2019 LA*, *ASVspoof 2021*, and *In-the-Wild* has been released.
 
-🔥 [TODO.] The code for *ASVspoof 5* is currently being organized and will be updated soon.
-
+✔️ [October 27, 2025] The code for *ASVspoof 5* has been released.
 
 
 # Preparation
@@ -129,7 +128,7 @@ Results are reported as the format of *best/mean* across 3 runs.
 | RawBMamba | Linear  | 1.71 / 2.24    | 5.01 / 5.43 | 19.43 / 19.90 | 24.60 / 27.85 | [Link](https://drive.google.com/drive/folders/1q7vbO0w7Szko8HYzvHKak7gwDW1YY5PU?usp=sharing) |
 | XLSR      | Linear | 0.37 / 0.58  | 4.66 / 5.06 | 3.28 / 3.51 | 5.54 / 5.99 | [Link](https://drive.google.com/drive/folders/13nR5n5adU6OOXL0Y1R7GiMyf61E7QdtP?usp=sharing) |
 | XLSR      | MLP    | 0.24 / 0.40  | 4.00 / 4.69 | 3.50 / 3.75 | 4.61 / 4.93 | [Link](https://drive.google.com/drive/folders/1hbtSt34fvSSxisPywLesi2wN64OcrvHK?usp=sharing) |
-| XLSR*      | MLP    | 0.20 / 0.31  | 2.17 / 2.21 | 1.61 / 1.64 | 5.39 / 5.65 | [Link](https://drive.google.com/drive/folders/14lO0xdOUR86AUbbqc7SSirbrwtNj5jSz?usp=drive_link) |
+| XLSR*      | MLP*    | 0.20 / 0.31  | 2.17 / 2.21 | 1.61 / 1.64 | 5.39 / 5.65 | [Link](https://drive.google.com/drive/folders/14lO0xdOUR86AUbbqc7SSirbrwtNj5jSz?usp=drive_link) |
 
 \* with Rawboost augmentation.
 

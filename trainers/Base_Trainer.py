@@ -32,7 +32,7 @@ class Base_Trainer(nn.Module):
         raise NotImplementedError
 
     def validation_one_epoch(self, val_loader, metric_path,
-                             database_path, track='asvspoof2019', verbose=False):
+                             database_path, track='asvspoof5_dev', verbose=False):
         """Perform validation"""
         val_loss = 0.0
         num_total = 0
@@ -63,7 +63,7 @@ class Base_Trainer(nn.Module):
                 'dev_eer': dev_eer,
                 'dev_tdcf': dev_tdcf}
     
-    def produce_evaluation_file(self, eval_loader, save_path):
+    def produce_evaluation_file(self, eval_loader, trial_path, save_path):
         self.eval()
 
         fname_list = []
@@ -77,14 +77,20 @@ class Base_Trainer(nn.Module):
             fname_list.extend(utt_id)
             score_list.extend(batch_score.tolist())
 
+        with open(trial_path, "r") as f_trl:
+            trial_lines = f_trl.readlines()
+        assert len(trial_lines) == len(fname_list) == len(score_list)
+
         with open(save_path, "w") as fh:
-            for f, cm in zip(fname_list,score_list):
-                fh.write('{} {}\n'.format(f, cm))
+            for fn, sco, trl in zip(fname_list, score_list, trial_lines):
+                spk_id, utt_id, _, _, _, _, _, src, key, _ = trl.strip().split(' ')
+                assert fn == utt_id
+                fh.write("{} {} {} {}\n".format(spk_id, utt_id, sco, key))
         fh.close()
         print("Scores saved to {}".format(save_path))
 
     def online_test(self, eval_loader, metric_path,
-                    database_path, track='asvspoof2019', verbose=False):
+                    database_path, track='asvspoof5', verbose=False):
         """Perform online testing"""
         self.eval()
 

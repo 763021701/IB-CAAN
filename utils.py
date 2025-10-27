@@ -1,7 +1,6 @@
 """
 Utilization functions
 """
-
 import os
 import random
 import sys
@@ -9,9 +8,7 @@ import sys
 import numpy as np
 import torch
 
-from evaluation import calculate_tDCF_EER
-
-from collections import defaultdict
+from eval_package.ASV5.eval5.calculate_metrics import calculate_minDCF_EER_CLLR, calculate_aDCF_tdcf_tEER
 
 def str_to_bool(val):
     """Convert a string representation of truth to true (1) or false (0).
@@ -216,13 +213,18 @@ def calc_eer_asvspoof(track, metric_path, database_path, fname_list, score_list,
     """
     track: 'asvspoof2019' 'asvspoof5_split' 'asvspoof5_dev' 'asvspoof5_eval'
     """
-    score_path = metric_path / "dev_score.txt"
-    output_file = metric_path / "dev_t-DCF_EER_ep_{}.txt".format(track)
 
-    if track.startswith('asvspoof2019'):
-        asv_score_file = database_path / "ASVspoof2019_LA" / config["asv_score_path"]
-        trial_path = (database_path / "ASVspoof2019_LA" /
-                      "ASVspoof2019_LA_cm_protocols/ASVspoof2019.LA.cm.dev.trl.txt")
+    if track.startswith('asvspoof5'):
+        if track == 'asvspoof5_dev':
+            trial_path = (database_path / "ASVspoof5_protocols/ASVspoof5.dev.track_1.tsv")
+            score_path = metric_path / "dev_score.txt"
+            output_file = metric_path / "dev_t-DCF_EER_ep_{}.txt".format(track)
+        elif track == 'asvspoof5_eval':
+            trial_path = (database_path / "ASVspoof5_protocols/ASVspoof5.eval.track_1.tsv")
+            score_path = metric_path / "eval_score.txt"
+            output_file = metric_path / "eval_t-DCF_EER_ep_{}.txt".format(track)
+        else:
+            raise ValueError(f"Unknown Track: {track}")
 
         with open(trial_path, "r") as f_trl:
             trial_lines = f_trl.readlines()
@@ -230,18 +232,18 @@ def calc_eer_asvspoof(track, metric_path, database_path, fname_list, score_list,
 
         with open(score_path, "w") as fh:
             for fn, sco, trl in zip(fname_list, score_list, trial_lines):
-                _, utt_id, _, src, key = trl.strip().split(' ')
+                spk_id, utt_id, _, _, _, _, _, src, key, _ = trl.strip().split(' ')
                 assert fn == utt_id
-                fh.write("{} {} {} {}\n".format(utt_id, src, key, sco))
+                fh.write("{} {} {} {}\n".format(spk_id, utt_id, sco, key))
 
-        dev_eer, dev_tdcf = calculate_tDCF_EER(
+        dev_tdcf, dev_eer, dev_cllr = calculate_minDCF_EER_CLLR(
             cm_scores_file=score_path,
-            asv_score_file=asv_score_file,
             output_file=output_file,
-            printout=False)
-        
-        return dev_eer, dev_tdcf, 0
-    
+            printout=False
+        )
+
+        return dev_eer, dev_tdcf, dev_cllr
+
     else:
         raise ValueError(f"Unknown Track: {track}")
 

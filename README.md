@@ -146,10 +146,12 @@ Thanks for following open-source projects:
 
 If you use this codebase, or otherwise find our work valuable, please cite:
 ```
-@article{huang2025ibcaan,
-  title={Generalizable Speech Deepfake Detection via Information Bottleneck Enhanced Adversarial Alignment},
-  author={Pu Huang and Shouguang Wang and Siya Yao and Mengchu Zhou},
-  journal={arXiv preprint arXiv:2509.23618},
-  year={2025}
+@inproceedings{huang2026generalizable,
+  title={Generalizable speech deepfake detection via information bottleneck enhanced adversarial alignment},
+  author={Huang, Pu and Wang, Shouguang and Yao, Siya and Zhou, Mengchu},
+  booktitle={ICASSP 2026-2026 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={19087--19091},
+  year={2026},
+  organization={IEEE}
 }
 ```
